@@ -4,6 +4,8 @@
   2htdp/image
   "colorcell.rkt")
 
+(provide colorworld%)
+
 (define colorworld%
   (class object%
     (init-field
