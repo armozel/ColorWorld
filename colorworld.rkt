@@ -20,7 +20,7 @@
        row
        (for/list ([i (in-range (* col row))])
          (new colorcell%))))
-    (define/public (get-color-cells) color-cells)
+    (define/public (get-color-cells) color-matrix)
     ;;; TODO Add draw logic here
     (define/public (draw scene)
       (void))
