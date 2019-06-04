@@ -26,11 +26,3 @@
       (foldr (λ (r sc)
                (above r sc)) scene color-rows))
     (super-new)))
-
-;;; test code Looks like colorworld% works. :)
-(define my-world (new colorworld% [row 50] [col 50]))
-(define mt-sc (empty-scene 0 0))
-
-;(define my-img (send my-world draw mt-sc))
-(time (send my-world draw mt-sc))
-;my-img
