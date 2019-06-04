@@ -2,7 +2,6 @@
 
 (require
   2htdp/image
-  htdp/matrix
   "colorcell.rkt")
 
 (provide colorworld%)
@@ -12,21 +11,26 @@
     (init-field
      [row 1]
      [col 1])
-    ;;; Using matrix since code uses bst search which looks
-    ;; to be faster on look up
-    (define color-matrix
-      (make-matrix
-       col
-       row
-       (for/list ([i (in-range (* col row))])
-         (new colorcell%))))
-    (define/public (get-color-cells) color-matrix)
-    ;;; TODO Add draw logic here
+    ;;; Using 2d list construction since matrix lib offers nothing useful here
+    (define color-cells
+      (for/list ([r (in-range row)])
+        (for/list ([c (in-range col)])
+          (new colorcell%))))
+    
+    (define/public (get-color-cells) color-cells)
+    ;;; TODO find a better way to use fold or some kind of recursive accumulator here
     (define/public (draw scene)
-      (void))
+      (define color-rows
+        (for/list ([r color-cells])
+          (foldr (λ (c sc) (send c draw sc)) scene r)))
+      (foldr (λ (r sc)
+               (above r sc)) scene color-rows))
     (super-new)))
 
-(define my-world (new colorworld%))
+;;; test code Looks like colorworld% works. :)
+(define my-world (new colorworld% [row 50] [col 50]))
 (define mt-sc (empty-scene 0 0))
 
-(send my-world draw mt-sc)
+;(define my-img (send my-world draw mt-sc))
+(time (send my-world draw mt-sc))
+;my-img
