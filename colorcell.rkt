@@ -15,12 +15,13 @@
      [size 20]
      [color (random-color)])
     (define expireby tick)
-    (define current-color color) 
-    (define/public (draw scene)
+    (define current-color color)
+    (define/public (update!)
       (cond [(= expireby 0)
              (set! current-color (random-color))
              (set! expireby tick)]
             [else
-             (set! expireby (sub1 expireby))])
+             (set! expireby (sub1 expireby))]))
+    (define/public (draw scene)
       (beside (square size 'solid current-color) scene))
     (super-new)))
