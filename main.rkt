@@ -15,9 +15,13 @@
 
 (define mt-sc (empty-scene 0 0))
 
-(big-bang init-world-state
-  [name "Demo"]
-  (on-tick
-   (λ (w) (send w update)) TICK-RATE)
-  (to-draw
-   (λ (w) (send w draw mt-sc))))
+(define (run)
+  (big-bang init-world-state
+    [name "Demo"]
+    [state #f]
+    (on-tick
+     (λ (w) (send w update)) TICK-RATE)
+    (to-draw
+     (λ (w) (send w draw mt-sc)))))
+
+(run)

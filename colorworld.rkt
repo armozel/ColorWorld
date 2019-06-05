@@ -16,7 +16,7 @@
     (define color-cells
       (for/list ([r (in-range row)])
         (for/list ([c (in-range col)])
-          (new colorcell% [tick (add1 (random max-expireby))]))))
+          (new colorcell% [tick (add1 (random max-expireby))] [size 40]))))
     (define/public (update)
       (for/list ([color-row color-cells])
         (for/list ([color-cell color-row])
